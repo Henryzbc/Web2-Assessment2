@@ -3,9 +3,9 @@ const require = createRequire(import.meta.url);
 const mysql = require('mysql')
 const db = mysql.createConnection({
     user: 'root',
-    password: '123456',
+    password: 'admin',
     host: 'localhost',
-    database: 'crowdfunding_db'
+    database: 'crowdfundingcr'
 })
 
 export default db

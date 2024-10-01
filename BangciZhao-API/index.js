@@ -62,7 +62,6 @@ app.get('/Fundraiser', (req, res) => {
 
 //query all category
 app.get('/category', (req, res) => {
-    const id = req.query.id;
     res.setHeader('Access-Control-Allow-Origin', '*');
     mysql.query('SELECT * FROM category', (queryErr, queryResult) => {
         if (queryErr) {
