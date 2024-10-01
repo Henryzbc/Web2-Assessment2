@@ -60,6 +60,6 @@ INSERT INTO `fundraiser` VALUES (1, 'Jackson', 'Rider Care Project', '10,000 AUD
 INSERT INTO `fundraiser` VALUES (2, 'Jackson1', 'Language training equipment for special needs children', '20,000 AUD', '2000 AUD', 'Byron Bay', 1, 1, './resources/pc-img/03143658bcpt.jpg', NULL);
 INSERT INTO `fundraiser` VALUES (3, 'Jackson2', 'High altitude employee oxygen bar', '30,000 AUD', '2000 AUD', 'Byron Bay', 1, 1, './resources/pc-img/04194040y8hy.png', NULL);
 INSERT INTO `fundraiser` VALUES (4, 'Jackson3', 'Charitable Fundraising | Legal Services for Farmers\' Public Welfare', '40,000 AUD', '2000 AUD', 'Byron Bay', 1, 1, './resources/pc-img/11113536p24l.jpg', NULL);
-INSERT INTO `fundraiser` VALUES (5, 'Jackson4', 'left-behind children', '50,000 AUD', '2000 AUD', 'Byron Bay', 1, 1, NULL, NULL);
+INSERT INTO `fundraiser` VALUES (5, 'Jackson4', 'left-behind children', '50,000 AUD', '2000 AUD', 'Byron Bay', 1, 1, './resources/pc-img/aaa.jpg', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
