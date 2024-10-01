@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* 可添加一个深色主题和浅色主题切换按钮 */
+        /*.theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        } */
+
+        .back-link {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #aaa;
+        }
+
+        .box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+        }
+
+        .item img {
+            max-width: 100%;
+            border-radius: 5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .item:hover img {
+            opacity: 0.8;
+        }
+
+        .caption {
+            font-size: 18px;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .item:hover.caption {
+            color: #ddd;
+        }
+
+        .detail {
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .funding-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .organizer-info {
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        input[type="text"] {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+    <style>
+        .menuLink:hover{
+            color: #f00 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;justify-content: space-between;">
+        <span></span>
+        <div>
+            <a href="./home.html" class="back-link menuLink">home</a>
+            <a href="./search.html" class="back-link menuLink">search</a>
+            <a href="./fundraisers.html" class="back-link menuLink">fundraisers</a>
+        </div>
+    </div>
+    <div class="box">
+    </div>
+    <div style="margin-top: 10px;" class="box">
+        <input type="text" placeholder="donation amount">
+        <button onclick="alert('This feature is under construction')" style="margin: 0 10px;">p</button>
+    </div>
+    <script>
+        let id = localStorage.getItem("id");
+        if (id) {
+            const response = await fetch('http://localhost:8080/Fundraiser?id=' + id);
+            const data = await response.json();
+            let item = data[0];
+            console.log(item);
+            document.querySelector(".box").innerHTML = `
+                <div class="item">
+                    <div>
+                        <img style="width: 100%;" src="${item.IMG}" alt="">
+                    </div>
+                    <div class="caption">
+                        ${item.CAPTION}
+                    </div>
+                    <div class="detail">
+                        ${item.DETAIL}
+                    </div>
+                    <div class="funding-info">
+                        <span>Target Funding: ${item.TARGET_FUNDING}</span>
+                        <span>Remaining: ${item.TARGET_FUNDING - item.CURRENT_FUNDING}</span>
+                    </div>
+                    <div class="organizer-info">
+                        Organizer: ${item.ORGANIZER}, ${item.CITY}
+                    </div>
+                </div>`;
+        } else {
+            window.location.href = "./search.html";
+        }
+    </script>
+</body>
+
+</html>

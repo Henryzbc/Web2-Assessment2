@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 0 40px;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            flex: 40%;
+            cursor: pointer;
+            margin: 20px;
+            padding: 25px;
+            box-sizing: border-box;
+            border: 2px solid #ff6347;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        #searchInput {
+            height: 35px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff6347;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        button {
+            height: 35px;
+            margin-left: 10px;
+            background-color: #ff6347;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff4500;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        div {
+            margin-top: 10px;
+        }
+    </style>
+    <style>
+        .menuLink:hover {
+            color: #f00 !important;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;justify-content: space-between;margin-top: 0;">
+        <span></span>
+        <div style="margin-top: 0;">
+            <a href="./home.html" class="back-link menuLink">home</a>
+            <a href="./search.html" class="back-link menuLink">search</a>
+            <a href="./fundraisers.html" class="back-link menuLink">fundraisers</a>
+        </div>
+    </div>
+    <div style="padding:20px 8%; box-sizing: border-box;display: flex;justify-content: center;">
+        <input type="search" style="height: 30px;" id="searchInput" placeholder="search organizer,caption">
+        <button onclick="search()" style="height: 30px;margin-left:5px;">search</button>
+    </div>
+    <div class="wrap">
+
+    </div>
+
+    <script>
+        let listData = [];
+        async function aaa() {
+            const response = await fetch('http://localhost:8080/home');
+            const data = await response.json();
+            listData = data;
+            let wrap = document.querySelector(".wrap");
+            wrap.innerHTML = null;
+            data.forEach((item, index) => {
+                wrap.innerHTML += ` <div onclick="fundraisers(${index})"  class="item">
+            <div  >
+                <img style="width: 100%;" src="${item.IMG}" alt="">
+            </div>  
+            <div>
+            ${item.CAPTION}
+            </div>
+        
+            <div style="margin-top: 5px;">
+        ${item.TARGET_FUNDING}     ${item.TARGET_FUNDING - item.CURRENT_FUNDING}
+            </div>
+            <div style="margin-top: 5px;">
+            </div>
+            <div style="margin-top: 5px;">
+            organizer:  ${item.ORGANIZER},${item.CITY}
+            </div>
+        </div>`;
+            });
+        }
+	aaa()
+
+
+        async function search() {
+
+            let value = document.querySelector('#searchInput').value;
+            if (value == "" || value == null) {
+                return alert("输入您要搜索的内容");
+            }
+            const response = await fetch('http://localhost:8080/SearchFundraisers?data=' + value);
+            const data = await response.json();
+            listData = data;
+            let wrap = document.querySelector(".wrap");
+            wrap.innerHTML = null;
+            data.forEach((item, index) => {
+                wrap.innerHTML += ` <div onclick="fundraisers(${index})"  class="item">
+        <div  >
+                <img style="width: 100%;" src="${item.IMG}" alt="">
+            </div>  
+    <div>
+    ${item.CAPTION}
+    </div>
+  
+    <div style="margin-top: 5px;">
+ ${item.TARGET_FUNDING}     ${item.TARGET_FUNDING - item.CURRENT_FUNDING}
+    </div>
+    <div style="margin-top: 5px;">
+    </div>
+    <div style="margin-top: 5px;">
+      organizer:  ${item.ORGANIZER},${item.CITY}
+    </div>
+</div>`;
+            });
+
+        }
+
+        function fundraisers(index) {
+            localStorage.setItem("id", JSON.stringify(listData[index].FUNDRAISER_ID));
+            window.location.href = "./fundraisers.html";
+        }
+    </script>
+</body>
+
+</html>
