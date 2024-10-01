@@ -47,6 +47,19 @@ app.get('/Fundraiser', (req, res) => {
     });
 });
 
+//query all category
+app.get('/category', (req, res) => {
+    const id = req.query.id;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    mysql.query('SELECT * FROM category', (queryErr, queryResult) => {
+        if (queryErr) {
+            console.log(queryErr);
+        } else {
+            res.end(JSON.stringify(queryResult));
+        }
+    });
+});
+
 app.listen(8080, () => {
     console.log('Server is running on port 8080.');
 });
