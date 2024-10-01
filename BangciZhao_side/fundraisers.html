@@ -135,7 +135,7 @@
         }
     </style>
     <style>
-        .menuLink:hover{
+        .menuLink:hover {
             color: #f00 !important;
         }
     </style>
@@ -157,13 +157,14 @@
         <button onclick="alert('This feature is under construction')" style="margin: 0 10px;">p</button>
     </div>
     <script>
-        let id = localStorage.getItem("id");
-        if (id) {
-            const response = await fetch('http://localhost:8080/Fundraiser?id=' + id);
-            const data = await response.json();
-            let item = data[0];
-            console.log(item);
-            document.querySelector(".box").innerHTML = `
+        async function init() {
+            let id = localStorage.getItem("id");
+            if (id) {
+                const response = await fetch('http://localhost:4000/Fundraiser?id=' + id);
+                const data = await response.json();
+                let item = data[0];
+                console.log(item);
+                document.querySelector(".box").innerHTML = `
                 <div class="item">
                     <div>
                         <img style="width: 100%;" src="${item.IMG}" alt="">
@@ -182,9 +183,11 @@
                         Organizer: ${item.ORGANIZER}, ${item.CITY}
                     </div>
                 </div>`;
-        } else {
-            window.location.href = "./search.html";
+            } else {
+                window.location.href = "./search.html";
+            }
         }
+        init()
     </script>
 </body>
 

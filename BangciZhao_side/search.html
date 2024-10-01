@@ -108,7 +108,7 @@
     <script>
         let listData = [];
         async function aaa() {
-            const response = await fetch('http://localhost:8080/home');
+            const response = await fetch('http://localhost:4000/home');
             const data = await response.json();
             listData = data;
             let wrap = document.querySelector(".wrap");
@@ -142,7 +142,7 @@
             if (value == "" || value == null) {
                 return alert("输入您要搜索的内容");
             }
-            const response = await fetch('http://localhost:8080/SearchFundraisers?data=' + value);
+            const response = await fetch('http://localhost:4000/SearchFundraisers?data=' + value);
             const data = await response.json();
             listData = data;
             let wrap = document.querySelector(".wrap");
