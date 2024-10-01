@@ -35,6 +35,19 @@ app.get('/SearchFundraisers', (req, res) => {
     });
 });
 
+// search active Fundraisers
+app.get('/SearchActiveFundraisers', (req, res) => {
+    const value = req.query.data;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    mysql.query(`SELECT * FROM fundraiser WHERE ACTIVE like "${value}"`, (queryErr, queryResult) => {
+        if (queryErr) {
+            console.log(queryErr);
+        } else {
+            res.end(JSON.stringify(queryResult));
+        }
+    });
+});
+
 app.get('/Fundraiser', (req, res) => {
     const id = req.query.id;
     res.setHeader('Access-Control-Allow-Origin', '*');
